@@ -7,8 +7,8 @@ console.log(props)
 
 return(
 <>
-<h1> The weather in {props.city} for the upcoming 5 days:</h1>
-	<ul className='Forecast-list'>
+<h1 style={{ "text-align" : "center"}}> The weather in {props.city} for the upcoming 5 days:</h1>
+	<ul >
 	{props.value.map(e => (
 		<ForecastItem 
 			id={Math.random()}
