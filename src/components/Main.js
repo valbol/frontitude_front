@@ -18,8 +18,7 @@ const Main = props => {
 
   const changeHandler = (e) => {
     setCityName(e.target.value);
-console.log(`name=${cityName}`)
-console.log(`name2=${e.target.value}`)
+    console.log(`change_handler=${cityName}`)
   };
 
   const onBlurHandler = (e) => {
@@ -30,9 +29,8 @@ console.log(`name2=${e.target.value}`)
   }
 
   const onClickHandler = async () => {
-    console.log(`onclickkey=${cityKey}`)
+    console.log(`onclick_key=${cityKey}`)
       try {
-        //let response = await axios.get(`http://localhost:4000/api/weather/${autocompleteData[0].cityKey}`);
         let response = await axios.get(`http://localhost:4000/api/weather/${cityKey}`);
       console.log(response)
       const flatData = response.data.DailyForecasts.map(e => {return {date: e.Date, Max: e.Temperature.Maximum, Min: e.Temperature.Minimum}});
@@ -49,7 +47,6 @@ console.log(`name2=${e.target.value}`)
                 let response = await axios.get(
                     `http://localhost:4000/api/weather/autocomplete/${cityName}`
                 );
-        console.log('----here----------')
         console.log(typeof response.data)
         let autoData = JSON.parse(response.data)
 				setAutocompleteData(autoData)
@@ -63,12 +60,9 @@ console.log(`name2=${e.target.value}`)
 
 console.log(`autocompleteData`)
 console.log(autocompleteData)
-console.log(typeof autocompleteData)
   return (
-   <>
-     <Stack spacing={1} sx={{ width: 1200, boxShadow: 4,borderRadius: 1, p: 3}} alignItems="stretch"    
-
->
+  <>
+    <Stack spacing={1} sx={{ width: 1200, boxShadow: 4,borderRadius: 1, p: 3}} alignItems="stretch" >
       <h1 style={{ "text-align" : "center"}}>FrontiWheather</h1>
       <Autocomplete
         {...autocompleteData}
@@ -80,14 +74,13 @@ console.log(typeof autocompleteData)
         )}
       />
       <button
-			  type={props.type}
+		    type={props.type}
 			  onClick={onClickHandler}
 		  >GO</button>  
-<Forecast value={forecast} city={cityName} />
+      <Forecast value={forecast} city={cityName} />
     </Stack>
-		
 	</>
-)
+  )
 };
 
 export default Main;

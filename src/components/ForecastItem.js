@@ -2,8 +2,7 @@ import React from 'react';
 
 import './ForecastItem.css'
 
-const ForecastItem = ({ date,Min,Max }) => {
-console.log(date)
+const ForecastItem = ({ date, Min, Max }) => {
     return (
         <>
             <li className='forecast-item'>      
