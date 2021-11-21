@@ -5,7 +5,9 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Radio from '@mui/material/Radio';
 
 import ForecastList from '../ForecastList/ForecastList'
 import useMain from './useMain';
@@ -18,7 +20,7 @@ const Main = () => {
           autocompleteData,
           changeHandler,
           onBlurHandler,
-          onClickHandler} = useMain()
+          onClickHandler,radioChangeHandler,state} = useMain()
 
   return (
   <>
@@ -27,6 +29,10 @@ const Main = () => {
       <Typography variant="h4" component="div" sx={{padding: 5,	textAlign: "center", margin: 0}}>
         FrontiWheather
       </Typography>
+      <RadioGroup row aria-label="Type" name="row-radio-buttons-group" value={state.unit} onChange={radioChangeHandler}>
+        <FormControlLabel value="celsius" control={<Radio />} label="Celsius" />
+        <FormControlLabel value="fahrenheit" control={<Radio />} label="Fahrenheit" />
+      </RadioGroup>
       <Autocomplete
         id="clear-on-escape"
         clearOnEscape

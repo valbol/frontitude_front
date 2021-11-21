@@ -11,12 +11,14 @@ const ForecastList = ({data, city, cityKey}) => {
       		</Typography>
 			<ul >
 			{data.map(e => {
+console.log(e)
 				return (
 					<ForecastItem 
 						key={`${e.date}_${cityKey}`} 
 						date={e.date}
 						Min={e.Min.Value}
 						Max={e.Max.Value}
+						Unit={e.Min.Unit}
 					/>
 				)				
 			})}

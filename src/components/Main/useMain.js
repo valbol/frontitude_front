@@ -1,5 +1,23 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect,useReducer } from 'react';
 import axios from 'axios';
+
+const reducer = (state, action) =>{
+  //state == current state & action == trigger what we need
+  // reducer return new updated state
+console.log(`action=${action.type}`)
+switch(action.type){
+      case 'fahrenheit':
+        return {unit: 'fahrenheit'};
+      case 'celsius':
+        return{unit: 'celsius'}
+      case 'clear':
+        return {unit: ''};
+default:
+return state;
+  }
+
+
+}
 
 
 const useMain = () => {
@@ -9,7 +27,13 @@ const useMain = () => {
   const [cityKey, setCityKey] = useState();
   const [autocompleteData, setAutocompleteData] = useState([])
   const [forecast, setForecast] = useState([])
+
   
+const [state, dispatch] = useReducer(reducer, {unit: 'celsius'}) //!! TODO
+
+  const radioChangeHandler = (e) =>{
+  dispatch({type : e.target.value})
+  }
 
   const changeHandler = (e) => {
     setCityName(e.target.value);
@@ -22,9 +46,12 @@ const useMain = () => {
   const onClickHandler = async () => {
         setTitle(cityName);
         setForecast([])
-
+        console.log(`state.unit=${state.unit}`)
+        let metric = (state.unit === 'celsius') ? true:false;
+        console.log(`metric=${metric}`)
       try {
-        let response = await axios.get(`http://localhost:4000/api/weather/${cityKey}`);
+        let response = await axios.get(`http://localhost:4000/api/weather/${cityKey}/${metric}`
+        );
         console.log(response)
         const flatData = 
           response.data.DailyForecasts.map(e => {
@@ -35,6 +62,7 @@ const useMain = () => {
         setForecast(flatData)
         setCityKey()
         setCityName()
+        dispatch({type: 'clear'})
 
       }
       catch(err){    
@@ -67,7 +95,9 @@ const useMain = () => {
 		autocompleteData,
 		changeHandler,
 		onBlurHandler,
-		onClickHandler
+		onClickHandler,
+radioChangeHandler,
+state
 	}
 
 }
