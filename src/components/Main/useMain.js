@@ -56,7 +56,11 @@ const useMain = () => {
       setCityName();
       dispatch({ type: 'clear' });
     } catch (err) {
-      console.log(err.response.data.message);
+      if (err.message) {
+        console.log(`err.message=${err.message}`);
+      } else {
+        console.log(err.response.data.message);
+      }
     }
   };
   useEffect(() => {
@@ -70,7 +74,11 @@ const useMain = () => {
         let cityKey = autoData[0]?.cityKey ? JSON.parse(autoData[0].cityKey) : '';
         setCityKey(cityKey);
       } catch (err) {
-        console.log(err.response.data.message);
+        if (err.message) {
+          console.log(`err.message=${err.message}`);
+        } else {
+          console.log(err.response.data.message);
+        }
       }
     }
     fetchData();
